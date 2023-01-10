@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 using System.Threading;
 
 namespace Tombola
@@ -74,7 +75,8 @@ namespace Tombola
                 Thread.Sleep(500);
             }
 
-            //Funzioni {
+            //Funzioni
+            //{
 
                 //funzione di estrazione
                 int estrazione()
@@ -109,8 +111,63 @@ namespace Tombola
                     return x;                                       //ritornare il valore calcolato
                 }
 
-            //funzione di calcolo della y per l'evidenziazione di un numero sul tabellone
+                //funzione di calcolo della y per l'evidenziazione di un numero sul tabellone
+                int Cy()
+                {
+                    if (num / 10 == 0)                              //controllo che il numero abbia 0 come decina (minore di 10)
+                    {
+                        y = 2;                                      //calcolo delle y
+                    }
+                    else                                            //istruzione nel caso il numero non abbia 0 come decina (minore di 10)
+                    {
+                        if (num % 10 != 0)                          //verifica che il numero non sia multiplo di dieci
+                        {
+                            y = 2 + num / 10;                       //calcolo delle y
+                        }
+                        else                                        //istruzione nel caso il numero sia multiplo di 10
+                        {
+                            y = 1 + num / 10;                       //calcolo delle y
+                        }
+                    }
+                    return y;                                       //ritornare il valore calcolato
+                }
 
+            int mcart1()                                        //funzione di generazione della matrice della prima cartella
+            {
+                bool[] cartv = new bool[90];                    //generazione array booleano locale per verificare l'univocità dei numeri generati
+                int numr;                                       //dichiarazione di una variabile locale
+                for (int i = 0; i < 3; i++)                     //ciclo per l'identificazione delle righe
+                {
+
+                    bool[] dec = new bool[10];              //array booleano per verifica delle decine
+                    for (int j = 0; j < 5; j++)                 //ciclo di generazione delle righe
+                    {
+                        do                                      //ciclo di estrazione affinche il numero non venga ripetuto
+                        {
+                            numr = r.Next(1, 91);               //estrazione numero casuale
+                            if (numr == 90)                     //verifica che il numero sia uguale a 90, in questo caso la procedura cambia
+                            {
+                                j--;                            //diminuzione del contatore, poiche appartenendo alla colonna 8 potrebbe sovrascriverne un valore
+                            }
+                        } while (cartv[numr - 1] == true || dec[numr / 10] == true);    //verifica che il numero non venga ripetuto e che la decina stessa non venga ripetuta
+                        cartv[numr - 1] = true;                 //segnare il numero generato come già presente tramite l'array dichiarato precedentemente
+                        dec[numr / 10] = true;                  //segnare la decina del numero generato come già presente tramite l'array dichiarato precedentemente
+                        if (numr == 90)                         //spostamento del valore 90 nell'ottava colonna
+                        {
+                            car1[8, i] = 90;                    //assegnazione del valore 90 nell'ottava colonna
+                        }
+                        else
+                        {
+                            car1[numr / 10, i] = numr;          //assegnazione del valore all'apposita colonna
+                        }
+                    }
+                    for (int k = 0; k < 9; k++)
+                    {
+                        dec[k] = false;                         //assegnazione false per l'array booleano nelle decine per la generazione della nuova riga
+                    }
+                }
+                return 0;
+            }
 
             //}
         }
