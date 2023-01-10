@@ -75,6 +75,41 @@ namespace Tombola
             }
 
             //Funzioni {
+
+                //funzione di estrazione
+                int estrazione()
+                {
+                    int num1;                                       //dichiarazione variabile locale
+                    do                                              //ciclo per l'estrazione di un numero non estratto
+                    {
+                        num1 = r.Next(1, 91);                       //generazione numero casuale
+                    } while (b[num1-1] == true);                    //verifica che il numero non sia ancora stato estratto
+                    b[num1-1] = true;                               //segnare il numero estratto attraverso l'array booleano creato precedentemente
+                    return num1;                                    //ritornare il valore estratto
+                }
+
+                //funzione di calcolo della x per l'evidenziazione di un numero sul tabellone tabellone
+                int Cx()
+                {
+                    if (num / 10 == 0)                              //controllo che il numero abbia 0 come decina (minore di 10)
+                    {
+                        x = 11 + (num % 10 * 3);                    //calcolo delle x
+                    }
+                    else                                            //istruzione nel caso il numero non abbia 0 come decina (minore di 10)
+                    {
+                        if (num % 10 != 0)                          //verifica che il numero non sia multiplo di dieci
+                        {
+                            x = 11 + (num % 10 * 3 - 1);            //calcolo delle x
+                        }
+                        else                                        //istruzione nel caso il numero sia multiplo di 10
+                        {
+                            x = 11 + num / (num / 10) * 3 - 1;      //calcolo delle x
+                        }
+                    }
+                    return x;                                       //ritornare il valore calcolato
+                }
+
+
             //}
         }
     }
