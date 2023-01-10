@@ -88,7 +88,7 @@ namespace Tombola
                     return num1;                                    //ritornare il valore estratto
                 }
 
-                //funzione di calcolo della x per l'evidenziazione di un numero sul tabellone tabellone
+                //funzione di calcolo della x per l'evidenziazione di un numero sul tabellone
                 int Cx()
                 {
                     if (num / 10 == 0)                              //controllo che il numero abbia 0 come decina (minore di 10)
@@ -108,6 +108,8 @@ namespace Tombola
                     }
                     return x;                                       //ritornare il valore calcolato
                 }
+
+            //funzione di calcolo della y per l'evidenziazione di un numero sul tabellone
 
 
             //}
