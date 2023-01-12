@@ -87,27 +87,7 @@ namespace Tombola
                 //evidenziamento colore sulle cartelle attraverso funzioni apposita
                 evidcart1();
                 evidcart2();
-                if (car1t == 15 && car2t == 15)                     //condizione dell'eventuale tombola di entrambi i giocatori
-                {
-                    Console.SetCursorPosition(13, 21);
-                    Console.Write("Entrambi i giocatori hanno vinto");
-                    Console.SetCursorPosition(0, 0);
-                    Environment.Exit(1);                            //chiusura del programma
-                }
-                else if (car1t == 15)                               //condizione di verifica dell'eventuale tombola del giocatore 1
-                {
-                    Console.SetCursorPosition(0, 20);
-                    Console.Write("Il giocatore 1 ha fatto tombola");
-                    Console.SetCursorPosition(0, 0);
-                    Environment.Exit(1);                            //chiusura del programma
-                }
-                else if (car2t == 15)                               //condizione di verifica dell'eventuale tombola del giocatore 2
-                {
-                    Console.SetCursorPosition(30, 20);
-                    Console.Write("Il giocatore 2 ha fatto tombola");
-                    Console.SetCursorPosition(0, 0);
-                    Environment.Exit(1);                            //chiusura del programma
-                }
+                endl();
                 Thread.Sleep(250);
             }
 
@@ -401,6 +381,31 @@ namespace Tombola
                         }
                     }
                     return car2t;
+                }
+                int endl()
+                {
+                    if (car1t == 15 && car2t == 15)                     //condizione dell'eventuale tombola di entrambi i giocatori
+                    {
+                        Console.SetCursorPosition(13, 21);
+                        Console.Write("Entrambi i giocatori hanno vinto");
+                        Console.SetCursorPosition(0, 0);
+                        return 0;                                           //chiusura del programma
+                    }
+                    else if (car1t == 15)                               //condizione di verifica dell'eventuale tombola del giocatore 1
+                    {
+                        Console.SetCursorPosition(0, 20);
+                        Console.Write("Il giocatore 1 ha fatto tombola");
+                        Console.SetCursorPosition(0, 0);
+                        return 0;                            //chiusura del programma
+                    }
+                    else if (car2t == 15)                               //condizione di verifica dell'eventuale tombola del giocatore 2
+                    {
+                        Console.SetCursorPosition(30, 20);
+                        Console.Write("Il giocatore 2 ha fatto tombola");
+                        Console.SetCursorPosition(0, 0);
+                        return 0;                            //chiusura del programma
+                    }
+                    return 0;
                 }
 
             //}
