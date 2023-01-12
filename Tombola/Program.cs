@@ -9,6 +9,9 @@ namespace Tombola
     {
         static void Main(string[] args)
         {
+            //disattivazione del cursore
+            Console.CursorVisible = false;
+
             //variabile di stampa del tabellone
             int var = 1;
 
@@ -83,6 +86,7 @@ namespace Tombola
 
                 //evidenziamento colore sulle cartelle attraverso funzioni apposita
                 evidcart1();
+                evidcart2();
                 Thread.Sleep(250);
             }
 
@@ -259,82 +263,143 @@ namespace Tombola
                     }
                 }
 
-            void gcart2()//funzione di stampa della seconda cartella
-            {
-                x = 30;                                         //assegnazione di 30 ad x per la posizione iniziale della cartella
-                y = 12;                                         //assegnazione di 30 ad y per la posizione iniziale della cartella
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine("Cartella 2: ");
-                y++;
-                for (int i = 0; i < 5; i++)                     //ciclo di stampa della seconda cartella
+                void gcart2()//funzione di stampa della seconda cartella
                 {
-                    x = 30;
+                    x = 30;                                         //assegnazione di 30 ad x per la posizione iniziale della cartella
+                    y = 12;                                         //assegnazione di 30 ad y per la posizione iniziale della cartella
+                    Console.SetCursorPosition(x, y);
+                    Console.WriteLine("Cartella 2: ");
                     y++;
-                    if (i % 2 == 1)                             //condizione che verifica se la riga è di trattini o numeri
+                    for (int i = 0; i < 5; i++)                     //ciclo di stampa della seconda cartella
                     {
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine("-------------------------");
-                    }
-                    else
-                    {
-                        Console.SetCursorPosition(x, y);
-                        for (int j = 0; j < 9; j++)             //ciclo di stampa dei numeri o degli spazi
+                        x = 30;
+                        y++;
+                        if (i % 2 == 1)                             //condizione che verifica se la riga è di trattini o numeri
                         {
-                            if (car2[j, i / 2 + i % 2] != 0)    //condizione di stampa del numero
+                            Console.SetCursorPosition(x, y);
+                            Console.WriteLine("-------------------------");
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(x, y);
+                            for (int j = 0; j < 9; j++)             //ciclo di stampa dei numeri o degli spazi
                             {
-                                Console.Write($"{car2[j, i / 2 + i % 2]} ");
-                            }
-                            else
-                            {
-                                if (j == 0)
+                                if (car2[j, i / 2 + i % 2] != 0)    //condizione di stampa del numero
                                 {
-                                    Console.Write("  ");        //stampa di due spazi
+                                    Console.Write($"{car2[j, i / 2 + i % 2]} ");
                                 }
                                 else
                                 {
-                                    Console.Write("   ");       //stampa di tre spazi
+                                    if (j == 0)
+                                    {
+                                        Console.Write("  ");        //stampa di due spazi
+                                    }
+                                    else
+                                    {
+                                        Console.Write("   ");       //stampa di tre spazi
+                                    }
+                                }
+                            }
+                            Console.WriteLine();
+                        }
+                    }
+                }
+
+                int evidcart1()                                     //funzione di evidaìenziazione della prima cartella e segnalazione del vincitore
+                {
+                    x = 0;
+                    y = 14;
+                    for (int k = 0; k < 3; k++)                     //cicli di identificazionw
+                    {
+                        for (int j = 0; j < 9; j++)                 //ciclo di identificazione dei numeri estratti e non
+                        {
+                            if (car1[j, k] == num)                  //condizione di verifica dell'estrazione
+                            {
+                                if (j == 0)                         //condizione di verifica che il numero sia minore o uguale a 10
+                                {
+                                    x = 0;
+                                }
+                                else
+                                {
+                                    x += j * 3 - 1;                 //calcolo delle x attraverso le decine del numero
+                                }
+                                y += k * 2;                         //calcolo delle y in base alla riga presa in considerazione
+                                car1t++;                            //incremento del contatore per la tombola
+                            for (int f = 0; f < 3; f++)                         //evidenziamento numero sul tabellone
+                            {
+                                Console.SetCursorPosition(x, y);                //impostare posizione per evidenziare
+                                Console.ForegroundColor = ConsoleColor.Green;   //impostare colore scritta per lettura efficente
+                                Console.WriteLine(num);
+                                Thread.Sleep(50);
+                                Console.SetCursorPosition(x, y);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine(num);
+                                Thread.Sleep(50);
+
+                            }
+                            Console.SetCursorPosition(x, y);                    //impostazione colore di background per evidenziare il numero estratto
+                            Console.BackgroundColor = ConsoleColor.DarkGray;
+                            Console.WriteLine(num);
+                            Console.BackgroundColor = ConsoleColor.Black;       //reimpostazione del background al colore originale della console per il numero seuccessivo
+                            if (car1t == 15)                    //condizione di verifica dell'eventuale tombola
+                                {
+                                    Console.SetCursorPosition(0, 20);
+                                    Console.Write("Il giocatore 1 ha fatto tombola");
+                                    Console.SetCursorPosition(1, 1);
+                                    Environment.Exit(1);//chiusura del programma
                                 }
                             }
                         }
-                        Console.WriteLine();
                     }
+                    return car1t;
                 }
-            }
-            int evidcart1()//funzione di evidenziazione dei numeri estratti presenti nella cartella 1 e segnalazione di eventuale vincitore
+            int evidcart2()//funzione di evidenziazione dei numeri estratti presenti nella cartella 1 e segnalazione di eventuale vincitore
             {
-                x = 0;//assegnazione del valore 0 a x
+                x = 30;//assegnazione del valore 30 a x
                 y = 14;//assegnazione del valore 14 a y
                 for (int k = 0; k < 3; k++)//ciclo che identifica le righe della cartella
                 {
                     for (int j = 0; j < 9; j++)//ciclo che identifica ogni numero presente/assente nella riga
                     {
-                        if (car1[j, k] == num)//condizione che verifica la presenza del numero estratto
+                        if (car2[j, k] == num)//condizione che verifica la presenza del numero estratto
                         {
                             if (j == 0)//condizione che verifica se il numero estratto ha decina == 0
                             {
-                                x = 0;//assegnazione del valore 0 a x nel caso la condizione sia verificata (decina == 0)
+                                x = 30;//assegnazione del valore 30 a x nel caso la condizione sia verificata (decina == 0)
                             }
                             else//istruzioni da eseguire se la condizione non è verificata
                             {
                                 x += j * 3 - 1;//calcolo della x in base alla decina  del numero
                             }
                             y += k * 2;//calcolo della y in base alla riga presa in considerazione
-                            car1t++;//incremento del contatore che segnala la tombola
-                            Console.SetCursorPosition(x, y);//impostare la posizione a x e y
-                            Console.BackgroundColor = ConsoleColor.Magenta;//impostare il colore dello sfondo a magenta
-                            Console.Write(num);//output del numero con sfondo magenta
-                            Console.BackgroundColor = ConsoleColor.Black;//impostare il colore dello sfondo a nero
-                            if (car1t == 15)//condizione che verifica l'eventuale tombola
+                            car2t++;//incremento del contatore che segnala la tombola
+                            for (int f = 0; f < 3; f++)                         //evidenziamento numero sul tabellone
                             {
-                                Console.SetCursorPosition(0, 20);//impostare la posizione a 0, 20
-                                Console.Write("Il giocatore 1 ha fatto tombola");//output del messaggio "Il giocatore 1 ha fatto tombola"
-                                Console.SetCursorPosition(1, 1);//impostare la posizione a 1, 1
-                                Environment.Exit(1);//chiusura del programma
+                                Console.SetCursorPosition(x, y);                //impostare posizione per evidenziare
+                                Console.ForegroundColor = ConsoleColor.Green;   //impostare colore scritta per lettura efficente
+                                Console.WriteLine(num);
+                                Thread.Sleep(50);
+                                Console.SetCursorPosition(x, y);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine(num);
+                                Thread.Sleep(50);
+
+                            }
+                            Console.SetCursorPosition(x, y);                    //impostazione colore di background per evidenziare il numero estratto
+                            Console.BackgroundColor = ConsoleColor.DarkGray;
+                            Console.WriteLine(num);
+                            Console.BackgroundColor = ConsoleColor.Black;       //reimpostazione del background al colore originale della console per il numero seuccessivo
+                            if (car2t == 15)
+                            {
+                                Console.SetCursorPosition(30, 20);  //impostare la posizione a 30, 20
+                                Console.Write("Il giocatore 2 ha fatto tombola");   //output del messaggio "Il giocatore 2 ha fatto tombola"
+                                Console.SetCursorPosition(1, 1);    //impostare la posizione a 1, 1
+                                Environment.Exit(1);    //chiusura del programma
                             }
                         }
                     }
                 }
-                return car1t;//ritorna il valore aggiornato del contatore per eventuale tombola
+                return car2t;   //ritorna il valore aggiornato del contatore per eventuale tombola
             }
             //}
         }
