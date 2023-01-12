@@ -76,12 +76,13 @@ namespace Tombola
                     Thread.Sleep(100);
 
                 }
-                Console.SetCursorPosition(x, y);
-                Console.BackgroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(x, y);                    //impostazione colore di background per evidenziare il numero estratto
+                Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine(num);
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Black;       //reimpostazione del background al colore originale della console per il numero seuccessivo
 
                 //evidenziamento colore sulle cartelle attraverso funzioni apposita
+                evidcart1();
                 Thread.Sleep(250);
             }
 
@@ -298,6 +299,42 @@ namespace Tombola
                         Console.WriteLine();
                     }
                 }
+            }
+            int evidcart1()//funzione di evidenziazione dei numeri estratti presenti nella cartella 1 e segnalazione di eventuale vincitore
+            {
+                x = 0;//assegnazione del valore 0 a x
+                y = 14;//assegnazione del valore 14 a y
+                for (int k = 0; k < 3; k++)//ciclo che identifica le righe della cartella
+                {
+                    for (int j = 0; j < 9; j++)//ciclo che identifica ogni numero presente/assente nella riga
+                    {
+                        if (car1[j, k] == num)//condizione che verifica la presenza del numero estratto
+                        {
+                            if (j == 0)//condizione che verifica se il numero estratto ha decina == 0
+                            {
+                                x = 0;//assegnazione del valore 0 a x nel caso la condizione sia verificata (decina == 0)
+                            }
+                            else//istruzioni da eseguire se la condizione non è verificata
+                            {
+                                x += j * 3 - 1;//calcolo della x in base alla decina  del numero
+                            }
+                            y += k * 2;//calcolo della y in base alla riga presa in considerazione
+                            car1t++;//incremento del contatore che segnala la tombola
+                            Console.SetCursorPosition(x, y);//impostare la posizione a x e y
+                            Console.BackgroundColor = ConsoleColor.Magenta;//impostare il colore dello sfondo a magenta
+                            Console.Write(num);//output del numero con sfondo magenta
+                            Console.BackgroundColor = ConsoleColor.Black;//impostare il colore dello sfondo a nero
+                            if (car1t == 15)//condizione che verifica l'eventuale tombola
+                            {
+                                Console.SetCursorPosition(0, 20);//impostare la posizione a 0, 20
+                                Console.Write("Il giocatore 1 ha fatto tombola");//output del messaggio "Il giocatore 1 ha fatto tombola"
+                                Console.SetCursorPosition(1, 1);//impostare la posizione a 1, 1
+                                Environment.Exit(1);//chiusura del programma
+                            }
+                        }
+                    }
+                }
+                return car1t;//ritorna il valore aggiornato del contatore per eventuale tombola
             }
             //}
         }
