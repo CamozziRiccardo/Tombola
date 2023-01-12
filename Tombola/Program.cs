@@ -9,6 +9,9 @@ namespace Tombola
     {
         static void Main(string[] args)
         {
+            //variabile di stampa del tabellone
+            int var = 1;
+
             //dichiarazione variabili
             int num, x;
             int y = 2;
@@ -36,7 +39,8 @@ namespace Tombola
                 for (int j = 2; j < 12; j++)
                 {
                     Console.SetCursorPosition(x, y);    //posizionamento cursore per stampa
-                    Console.Write("**");                //stampa asterischi
+                    Console.Write(var);                 //stampa numeri
+                    var++;                              //aumento della variabile di stampa
                     x += 3;
                 }
                 y++;
@@ -72,6 +76,11 @@ namespace Tombola
                     Thread.Sleep(100);
 
                 }
+                Console.SetCursorPosition(x, y);
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.WriteLine(num);
+                Console.BackgroundColor = ConsoleColor.Black;
+
                 //evidenziamento colore sulle cartelle attraverso funzioni apposita
                 Thread.Sleep(250);
             }
@@ -96,7 +105,7 @@ namespace Tombola
                 {
                     if (num / 10 == 0)                              //controllo che il numero abbia 0 come decina (minore di 10)
                     {
-                        x = 11 + (num % 10 * 3);                    //calcolo delle x
+                        x = 10 + (num % 10 * 3);                    //calcolo delle x
                     }
                     else                                            //istruzione nel caso il numero non abbia 0 come decina (minore di 10)
                     {
@@ -249,13 +258,46 @@ namespace Tombola
                     }
                 }
 
-            void gcart2 ()                                      //funzione di stampa della seconda cartella
+            void gcart2()//funzione di stampa della seconda cartella
             {
-                x = 30;                                         //posizione iniziale della seconda cartella nelle x
-                y = 12;                                         //posizione iniziale della seconda cartella nelle y
-                Console.SetCursorPosition(x, y);                //posizionamento del puntatore
+                x = 30;                                         //assegnazione di 30 ad x per la posizione iniziale della cartella
+                y = 12;                                         //assegnazione di 30 ad y per la posizione iniziale della cartella
+                Console.SetCursorPosition(x, y);
                 Console.WriteLine("Cartella 2: ");
-                y++;                                            //incremento di y per creare una riga vuota
+                y++;
+                for (int i = 0; i < 5; i++)                     //ciclo di stampa della seconda cartella
+                {
+                    x = 30;
+                    y++;
+                    if (i % 2 == 1)                             //condizione che verifica se la riga è di trattini o numeri
+                    {
+                        Console.SetCursorPosition(x, y);
+                        Console.WriteLine("-------------------------");
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(x, y);
+                        for (int j = 0; j < 9; j++)             //ciclo di stampa dei numeri o degli spazi
+                        {
+                            if (car2[j, i / 2 + i % 2] != 0)    //condizione di stampa del numero
+                            {
+                                Console.Write($"{car2[j, i / 2 + i % 2]} ");
+                            }
+                            else
+                            {
+                                if (j == 0)
+                                {
+                                    Console.Write("  ");        //stampa di due spazi
+                                }
+                                else
+                                {
+                                    Console.Write("   ");       //stampa di tre spazi
+                                }
+                            }
+                        }
+                        Console.WriteLine();
+                    }
+                }
             }
             //}
         }
