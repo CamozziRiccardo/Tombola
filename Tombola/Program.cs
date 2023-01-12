@@ -72,11 +72,11 @@ namespace Tombola
                     Console.SetCursorPosition(x, y);                //impostare posizione per evidenziare
                     Console.ForegroundColor = ConsoleColor.Green;   //impostare colore scritta per lettura efficente
                     Console.WriteLine(num);
-                    Thread.Sleep(1);
+                    Thread.Sleep(100);
                     Console.SetCursorPosition(x, y);
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine(num);
-                    Thread.Sleep(1);
+                    Thread.Sleep(100);
 
                 }
                 Console.SetCursorPosition(x, y);                    //impostazione colore di background per evidenziare il numero estratto
@@ -108,7 +108,7 @@ namespace Tombola
                     Console.SetCursorPosition(0, 0);
                     Environment.Exit(1);                            //chiusura del programma
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(250);
             }
 
             //Funzioni
